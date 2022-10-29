@@ -1,2 +1,7 @@
-fast-api
-sqlalchemy
+uvicorn
+fastapi
+psycopg2-binary
+python_dotenv
+pydantic
+requests
+starlette

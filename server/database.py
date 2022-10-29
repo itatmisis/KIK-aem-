@@ -1,20 +1,26 @@
-from typing import List, Optional
+import psycopg2
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+from os import getenv
+from dotenv import load_dotenv
 
-from pydantic import BaseModel
+# Check if we are under Docker
+DOCKER_MODE = False
+if getenv("DOCKER_MODE") == 'true':
+    DOCKER_MODE = True
+
+# Load variables from .env
+if not DOCKER_MODE:
+    load_dotenv()
 
 
-class User(BaseModel):
-    email: str
-    password: str
-    moderator: bool = False
-
-
-class AuthorizationResult(BaseModel):
-    is_ok: bool = False
-    error: str = ""
-
-
-class Search(BaseModel):
-    text: str = ""
-    is_moscow: bool = False
-    category: int = -1
+try:
+    connection = psycopg2.connect(
+        host=getenv("TGBOT_PG_HOST"),
+        user=getenv("TGBOT_PG_USER"),
+        password=getenv("TGBOT_PG_PASSWD"),
+        database=getenv("TGBOT_PG_DB")
+    )
+    cur = connection.cursor()
+    connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+except Exception as ex:
+    print(ex)
