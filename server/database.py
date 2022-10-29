@@ -15,10 +15,10 @@ if not DOCKER_MODE:
 
 try:
     connection = psycopg2.connect(
-        host=getenv("TGBOT_PG_HOST"),
-        user=getenv("TGBOT_PG_USER"),
-        password=getenv("TGBOT_PG_PASSWD"),
-        database=getenv("TGBOT_PG_DB")
+        host=getenv("LCT_PG_HOST"),
+        user=getenv("LCT_PG_USER"),
+        password=getenv("LCT_PG_PASSWD"),
+        database=getenv("LCT_PG_DB")
     )
     cur = connection.cursor()
     connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
