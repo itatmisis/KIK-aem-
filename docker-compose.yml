@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  lct:
+    build:
+      context: ./server
+    restart: always
+    environment:
+      TGBOT_PG_HOST: ${LCT_PG_HOST}
+      TGBOT_PG_USER: ${LCT_PG_USER}
+      TGBOT_PG_PASSWD: ${LCT_PG_PASSWD}
+      TGBOT_PG_DB: ${LCT_PG_DB}
