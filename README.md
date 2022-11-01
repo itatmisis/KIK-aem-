@@ -15,7 +15,7 @@
 Использование
 
 Клонирование репозитория
-https://github.com/itatmisis/KIK(aem)
+https://github.com/itatmisis/KIK-aem-
 
 Для бэкенда:
 pip install -r server/requirements.txt 
