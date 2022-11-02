@@ -21,8 +21,12 @@ export default {
   *,html{
     margin:0;
     padding:0;
+    /* max-width: 100%; */
+    /* overflow-x: hidden; */
   }
   body{
          background:#F5F5F5;
+         max-width: 100%;
+         overflow-x: hidden;
     }
 </style>
