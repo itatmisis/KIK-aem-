@@ -23,9 +23,9 @@
                     <p class="col-sm" style="cursor:pointer">Личный кабинет</p>
                 </div>
 
-                <div class="row sticky-bottom position-absolute bottom-0">
+                <div class="row sticky-bottom position-absolute bottom-0" v-on:click="()=>this.$router.push('/authication')">
                     <img height="30" src="../assets/menuIcon.svg" alt="" class="col-sm-2">
-                    <p class="col-sm">Выход</p>
+                    <p class="col-sm" style="cursor:pointer">Выход</p>
                 </div>
             </div>
         </div>

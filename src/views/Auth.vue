@@ -5,14 +5,14 @@
             <form>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Логин</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input v-model="login" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Пароль</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <input v-model="password" type="password" class="form-control" id="exampleInputPassword1">
                 </div>
                 <div class="row" style="margin-left:1%">
-                    <button v-on:click="goToMain" class="col-sm btn" style="color:white;background:#444A60">Войти</button>
+                    <a v-on:click="authUser" class="col-sm btn" style="color:white;background:#444A60">Войти</a>
                     <div style="margin-left:5%" class="mt-2 col-sm-7 form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                         <label class="form-check-label"  for="exampleCheck1">запомнить меня</label>
@@ -24,10 +24,32 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
+    data(){
+        return{
+            login:'',
+            password:''
+        }
+    },
     methods:{
         goToMain(){
-            this.$router.push('/')
+            // this.$router.push('/')
+        },
+
+        authUser(){
+            const body = JSON.stringify({
+                    login:this.login,
+                    password:this.password
+            })
+            axios.post("http://localhost:66/authcheck",body,{headers: {"Content-Type": "application/json"  }})
+                .then(res=>{
+                    console.log(res.data);
+                })
+                .catch((e,res)=>{
+                    console.log(e);
+                })
         }
     }
 }
