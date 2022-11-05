@@ -1,13 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import Recomendation from '../views/Recomendation.vue'
 import Auth from '../views/Auth.vue'
 import Profile from '../views/Profile.vue'
+import Analytics from '../views/Analytics.vue'
 
 const routes = [
   {
+    path: '/recomendation',
+    name: 'Recomendation',
+    component: Recomendation
+  },
+  {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Analytics',
+    component: Analytics
   },
   {
     path: '/authication',

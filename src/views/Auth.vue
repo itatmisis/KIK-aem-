@@ -43,7 +43,7 @@ export default {
                     login:this.login,
                     password:this.password
             })
-            axios.post("http://localhost:66/authcheck",body,{headers: {"Content-Type": "application/json"  }})
+            axios.post("https://vl0i36.deta.dev/authcheck",body,{headers: {"Content-Type": "application/json"  }})
                 .then(res=>{
                     console.log(res.data);
                 })
