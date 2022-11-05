@@ -44,7 +44,7 @@
                     <p class="col-sm" style="cursor:pointer">Личный кабинет</p>
                 </div>
 
-                <div class="row sticky-bottom position-absolute bottom-0" v-on:click="()=>this.$router.push('/authication')">
+                <div class="row sticky-bottom position-absolute bottom-0" v-on:click="getOut">
                     <img style="height:5%;width:40%" src="../assets/logout_.svg" alt="" class="col-sm-2">
                     <p class="col-sm-6 text-muted" style="cursor:pointer">Выход</p>
                 </div>
@@ -73,6 +73,10 @@ export default {
     methods:{
         goToProfile(){
             this.$router.push('/profile')
+        },
+        getOut(){
+            localStorage.clear();
+            this.$router.push('/authication');
         },
         sendData(){
             if(this.startM >= this.endM || (this.startM == '' || this.endM == '' || this.code == '')){

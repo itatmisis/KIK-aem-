@@ -1,7 +1,7 @@
 <template>
   <div class="row" style="">
     <!-- <Header /> -->
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <Menu @data="handleData($event)" />
     </div>
     <div style="background:#F5F5F5;" class="col-sm p-3">
@@ -19,11 +19,11 @@
         </div>
 
         <div class="mt-3 rounded p-2" style="background:white;width:fit-content">
-          <VueApexCharts v-if="download" type="line" width="450" :options="chartOptions" :series="series"></VueApexCharts>
-          <div class="p-5" v-if="!download">
+          <VueApexCharts v-if="download" type="line" width="650" :options="chartOptions" :series="series"></VueApexCharts>
+          <div class="p-5" v-if="!gettedD">
             <p class="h2">Вы не ввели данные.</p>
-            
           </div>
+          <div v-if="gettedD & !download" class="loader"></div>
           <!-- {{[this.startM, this.endM, this.product, this.dir]}} -->
         </div>
     </div>
@@ -44,16 +44,19 @@ export default {
   methods:{
     handleData(e){
         [this.startM,this.endM,this.product] = e;
+        this.gettedD = true;
         this.getData();
+        
     },
     im_click(){
         this.im = true;
         this.ex = false;
         this.dir = "IM";
         if(this.download){
+
+            // this.chartOptions['xaxis']['categories'] = [''];
+            // this.series[0]['data'] = [''];
             this.getData();
-            this.chartOptions['xaxis']['categories'] = [''];
-            this.series[0]['data'] = [''];
         }
     },
     ex_click(){
@@ -61,29 +64,32 @@ export default {
         this.ex = true;
         this.dir = "EX";
         if(this.download){
+            // this.chartOptions['xaxis']['categories'] = [''];
+            // this.series[0]['data'] = [''];
             this.getData();
-            this.chartOptions['xaxis']['categories'] = [''];
-            this.series[0]['data'] = [''];
         }
     },
-    async getData(){
+     getData(){
         const dataParams = {
             product: this.product,// 8515110000
             direction: this.dir,
             start: this.startM+'-2021',
             end: this.endM+'-2021'
         }
-        await axios.post("https://vl0i36.deta.dev/analysis/filter?",null,{params:dataParams,headers: {"Content-Type": "application/json"  }})
+         axios.post("https://vl0i36.deta.dev/analysis/filter?",null,{params:dataParams,headers: {"Content-Type": "application/json"  }})
             .then(res => {
                 console.log(res.data.stats);
-                this.chartOptions['xaxis']['categories'][0] = res.data.stats[0].operation_date;
-                this.series[0]['data'][0] = (Math.round(((res.data.stats[0].avg_cost) + Number.EPSILON) * 100) / 100);
+                this.chartOptions['xaxis']['categories'] = [res.data.stats[0].operation_date];
+                this.series[0]['data'] = [(Math.round(((res.data.stats[0].avg_cost) + Number.EPSILON) * 100) / 100)];
                 for(let i=1;i<res.data.stats.length;i++){
                     this.series[0]['data'].push(Math.round(((res.data.stats[i].avg_cost) + Number.EPSILON) * 100) / 100);
                     this.chartOptions['xaxis']['categories'].push(res.data.stats[i].operation_date);
                 }
                 this.series[0]['name'] = res.data.stats[0].name.slice(0,10) + '...';
                 this.download = true;
+
+                console.log(this.chartOptions['xaxis']['categories'])
+                console.log(this.series[0]['data'])
             })  
             .catch(e => {
                 console.log(e);
@@ -95,7 +101,7 @@ export default {
   },
   data(){
     return{
-        im: true,ex:false, dir:'IM',product:'',startM:'',endM:'',download:false,
+        im: true,ex:false, dir:'IM',product:'',startM:'',endM:'',download:false,gettedD:false,
      series: [{
               name: '',
               data: ['']
@@ -144,5 +150,18 @@ export default {
     }
     .non-acitve{
         background:white
+    }
+    .loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
     }
 </style>

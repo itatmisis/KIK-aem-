@@ -1,7 +1,7 @@
 <template>
     <div class="row position-relative" style="">
         <!-- <Header /> -->
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <Menu />
         </div>
         <div class="col-sm p-3">

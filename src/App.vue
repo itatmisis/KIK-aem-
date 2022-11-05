@@ -13,6 +13,11 @@ import Header from '@/components/Header.vue'
 export default {
     components:{
       Header
+    },
+    mounted(){
+      if(localStorage.getItem('logged') != 'true'){
+        this.$router.push('/authication')
+      }
     }
 }
 </script>
