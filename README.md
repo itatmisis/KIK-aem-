@@ -27,6 +27,7 @@ python3.11 main.py
 
 Для фронтенда
 ```
+cd frontend
 npm install
 npm run serve
 
