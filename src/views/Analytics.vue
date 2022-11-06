@@ -79,17 +79,19 @@ export default {
          axios.post("https://vl0i36.deta.dev/analysis/filter?",null,{params:dataParams,headers: {"Content-Type": "application/json"  }})
             .then(res => {
                 console.log(res.data.stats);
-                this.chartOptions['xaxis']['categories'] = [res.data.stats[0].operation_date];
+                // this.chartOptions['xaxis']['categories'] = [res.data.stats[0].operation_date];
+                this.cats = [res.data.stats[0].operation_date];
                 this.series[0]['data'] = [(Math.round(((res.data.stats[0].avg_cost) + Number.EPSILON) * 100) / 100)];
                 for(let i=1;i<res.data.stats.length;i++){
                     this.series[0]['data'].push(Math.round(((res.data.stats[i].avg_cost) + Number.EPSILON) * 100) / 100);
-                    this.chartOptions['xaxis']['categories'].push(res.data.stats[i].operation_date);
+                    // this.chartOptions['xaxis']['categories'].push(res.data.stats[i].operation_date);
+                    this.cats.push(res.data.stats[i].operation_date);
                 }
                 this.series[0]['name'] = res.data.stats[0].name.slice(0,10) + '...';
                 this.download = true;
-
-                console.log(this.chartOptions['xaxis']['categories'])
-                console.log(this.series[0]['data'])
+                this.chartOptions['xaxis']['categories'] = this.cats;
+                // console.log(this.chartOptions['xaxis']['categories'])
+                // console.log(this.series[0]['data'])
             })  
             .catch(e => {
                 console.log(e);
@@ -101,7 +103,7 @@ export default {
   },
   data(){
     return{
-        im: true,ex:false, dir:'IM',product:'',startM:'',endM:'',download:false,gettedD:false,
+        im: true,ex:false, dir:'IM',product:'',startM:'',endM:'',download:false,gettedD:false,cats:[],
      series: [{
               name: '',
               data: ['']

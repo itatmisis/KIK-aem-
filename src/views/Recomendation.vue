@@ -16,17 +16,32 @@
                 <p>Экспорт</p>
             </div>
         </div>
-        <div v-if="downloaded">
-          <div v-for="(rec,key) in recs" :key="key" class="rounded p-2 mt-3" style="background:white;width:50%">
-            <p :class="rec.clicked ? '' : 'text-truncate'">{{rec.name}}</p>
-            <div class="row" style="width:45%;margin-left:5%">
-              <p class="col-sm badge text-wrap p-2" style="background:#9EA7AF">{{rec.product_code}}</p>
-              <p v-on:click="()=>rec.clicked=!rec.clicked" class="col-sm badge text-wrap p-2" style="background:#3E445B;margin-left:5%;cursor:pointer">Показать больше </p>
+        
+          <div v-if="downloaded">
+            <div v-for="(rec,key) in recs" :key="key" class="rounded p-2 mt-3" style="background:white;width:50%">
+              <p :class="rec.clicked ? '' : 'text-truncate'">{{rec.name}}</p>
+              <div class="row" style="width:45%;margin-left:5%">
+                <p class="col-sm badge text-wrap p-2" style="background:#9EA7AF">{{rec.product_code}}</p>
+                <p v-on:click="()=>rec.clicked=!rec.clicked" class="col-sm badge text-wrap p-2" style="background:#3E445B;margin-left:5%;cursor:pointer">Показать больше </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div v-if="!downloaded" class="loader"></div>
+          <div v-if="!downloaded" class="loader"></div>
+          <Paginate
+          class="mt-3"
+          :page-count="20"
+          :page-range="3"
+          :margin-pages="2"
+          :click-handler="getRecs"
+          :prev-text="'Пред'"
+          :next-text="'След'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+            style="cursor:pointer;" 
+          >
+          </Paginate>
+        
     </div>
   </div>
 </template>
@@ -36,12 +51,12 @@
 import axios from 'axios'
 import Menu from '@/components/Menu.vue'
 import Header from '@/components/Header.vue'
-
+import Paginate from "vuejs-paginate-next"; 
 
 export default {
   name: 'Recomendation',
   components: {
-    Menu,Header
+    Menu,Header,Paginate
   },
   data(){
     return{
@@ -63,15 +78,17 @@ export default {
         this.dir = "EX";
 
     },
-    getRecs(){
+    getRecs(pageNum){
       axios.get('https://vl0i36.deta.dev/recommendations')
         .then(res=>{
-          console.log(res.data);
-          for(let i=0;i<4;i++){
+          
+          this.recs = [];
+          for(let i=pageNum;i < 3 + pageNum;i++){
             this.recs.push(res.data.stats[i]);
-            this.recs[i]['clicked'] = false;
+            this.recs[i - pageNum]['clicked'] = false;
             this.downloaded = true;
           }
+          // console.log(this.recs);
         })
         .catch(e=>{
           console.log(e);
@@ -79,7 +96,7 @@ export default {
     }
   },
   mounted(){
-    this.getRecs();
+    this.getRecs(0);
   },
 }
 </script>
@@ -105,5 +122,13 @@ export default {
     @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+    }
+    .page-item {
+      color:white;
+      background:#1A8BCB;
+    }
+    .pagination{
+      color:#1A8BCB;
+      
     }
 </style>
