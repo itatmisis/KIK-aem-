@@ -25,7 +25,11 @@
                     <div class="mt-2">
                         <p class="text-muted">Код товара</p>
                         <div class="row">
-                            <input v-model="code" class="col-sm-6 form-control border-end-0" style="margin-left:10%;width:60%" type="number"/>
+                            <select v-model="code" class="col-sm-6 form-select" style="margin-left:10%;width:60%" aria-label="Default select example">
+                                <!-- <option selected>Код товара</option> -->
+                                <option v-for="(rec,key) in recs" :key="key" :value="rec.product_code">{{rec.product_code}}</option>
+                            </select>
+                            <!-- <input  class="col-sm-6 form-control border-end-0" style="margin-left:10%;width:60%" type="number"/> -->
                             <a v-on:click="sendData" class="btn col-sm-2" style="color:white;background:#3E445B"><img src="@/assets/arrow_btn.svg"/></a>
                         </div>
                     </div>
@@ -53,6 +57,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Header from '@/components/Header.vue'
 
 export default {
@@ -64,13 +69,26 @@ export default {
             startM: '',
             endM: '',
             code:'',
-            err: false
+            err: false,
+            recs: [],
         }
     },
     components:{
         Header
     },
     methods:{
+        getRecs(){
+            axios.get('https://vl0i36.deta.dev/recommendations')
+                .then(res=>{
+                console.log(res.data);
+                for(let i=0;i<15;i++){
+                    this.recs.push(res.data.stats[i]);
+                }
+                })
+                .catch(e=>{
+                    console.log(e);
+                })
+        },
         goToProfile(){
             this.$router.push('/profile')
         },
@@ -79,7 +97,7 @@ export default {
             this.$router.push('/authication');
         },
         sendData(){
-            if(this.startM >= this.endM || (this.startM == '' || this.endM == '' || this.code == '')){
+            if(this.startM >= this.endM || (this.startM == '' || this.endM == '' || this.code == '') || (this.startM < 1 || this.startM > 12) || (this.endM < 1 || this.endM > 12)){
                 this.err = true;
                 this.startM = '';
                 this.endM = '';
@@ -95,6 +113,9 @@ export default {
                 this.$emit('data',[this.startM.toString(),this.endM.toString(),this.code.toString()])
             }
         }
+    },
+    mounted(){
+        this.getRecs();
     }
 }
 </script>
