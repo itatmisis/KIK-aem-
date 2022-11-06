@@ -1,19 +1,29 @@
-# frontend
+#Лидеры Цифровой Трансорфмаций 2022 - Рекомендательный сервис по выявлению 
+перспективных производственных ниш 
+на основе таможенной статистики
 
-## Project setup
+Программное обеспечение для парсинга, обработки и анализа данных о промышленных компаниях и товарах в Российской Федерации. Особое внимание уделено отбору информации о компаниях и и товарах, расположенных в г. Москва.
+
+#Стек
+
+#Бэкенд
+
+В качестве бэкенд-сервера используется FastAPI-сервер на языке Python. С целью хранения данных используется Postgresql-реляционная база данных.
+
+#Фронтенд
+
+Использование
+
+Клонирование репозитория
+https://github.com/itatmisis/KIK(aem)
+
+Для бэкенда:
 ```
-npm install
+pip install -r server/requirements.txt 
+cd server 
+python3.11 main.py
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Где смотреть?
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
