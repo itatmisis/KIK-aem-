@@ -5,3 +5,5 @@ python_dotenv
 pydantic
 requests
 starlette
+bcrypt
+python-multipart

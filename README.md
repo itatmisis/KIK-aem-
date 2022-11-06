@@ -15,13 +15,13 @@
 Использование
 
 Клонирование репозитория
-https://github.com/itatmisis/KIK-aem-
+https://github.com/itatmisis/KIK(aem)
 
 Для бэкенда:
 ```
 pip install -r server/requirements.txt 
 cd server 
-python3 main.py
+python3.11 main.py
 ```
 
 Где смотреть?
