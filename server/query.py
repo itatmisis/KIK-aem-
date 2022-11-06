@@ -1,7 +1,7 @@
 insert_user = "INSERT INTO users (login, password, is_admin, is_super) VALUES ('%s', '%s', %s, %s)"
-select_salt = "SELECT salt FROM users WHERE login = '%s'"
-select_user = "SELECT COUNT() FROM users WHERE login = '%s' and password = '%s'"
+
 get_user = "SELECT password, is_super, is_admin FROM users WHERE login = '%s'"
+
 get_stats = '''select product_code, operation_date, avg_cost, name from stats 
 where product_code = '%s' AND 
 direction = '%s' AND 

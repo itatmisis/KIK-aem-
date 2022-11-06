@@ -18,7 +18,7 @@ class DB:
         except Exception as ex:
             print(ex)
     
-    def get_user(self, login: str) -> tuple:      
+    def get_user(self, login: str) -> tuple | None:      
         self.cur.execute(query.get_user%login)
         user_information: list = self.cur.fetchall()
         if len(user_information) == 0:
@@ -26,7 +26,7 @@ class DB:
         return user_information[0]
 
     def check_user(self, login: str, password: str) -> models.AuthorizationResult:
-        user_information: tuple = self.get_user(login)
+        user_information: tuple | None = self.get_user(login)
         result = models.AuthorizationResult()
         if user_information is None:
             return result
