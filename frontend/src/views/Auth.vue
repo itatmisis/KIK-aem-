@@ -51,7 +51,7 @@ export default {
             axios.post("https://vl0i36.deta.dev/authcheck",body,{headers: {"Content-Type": "application/json"  }})
                 .then(res=>{
                     
-                    console.log(res.data);
+                    // console.log(res.data);
                     localStorage.setItem('logged',res.data.is_ok)
                     localStorage.setItem('admin',res.data.is_admin);
                     localStorage.setItem('super',res.data.is_super);

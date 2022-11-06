@@ -8,11 +8,9 @@
 
 <script>
 
-import Header from '@/components/Header.vue'
-
 export default {
     components:{
-      Header
+      
     },
     mounted(){
       if(localStorage.getItem('logged') != 'true'){

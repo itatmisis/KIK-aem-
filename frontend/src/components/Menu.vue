@@ -58,7 +58,6 @@
 
 <script>
 import axios from 'axios'
-import Header from '@/components/Header.vue'
 
 export default {
     data(){
@@ -74,13 +73,13 @@ export default {
         }
     },
     components:{
-        Header
+        
     },
     methods:{
         getRecs(){
             axios.get('https://vl0i36.deta.dev/recommendations')
                 .then(res=>{
-                console.log(res.data);
+                // console.log(res.data);
                 for(let i=0;i<15;i++){
                     this.recs.push(res.data.stats[i]);
                 }

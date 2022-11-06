@@ -78,7 +78,7 @@ export default {
         }
          axios.post("https://vl0i36.deta.dev/analysis/filter?",null,{params:dataParams,headers: {"Content-Type": "application/json"  }})
             .then(res => {
-                console.log(res.data.stats);
+                // console.log(res.data.stats);
                 // this.chartOptions['xaxis']['categories'] = [res.data.stats[0].operation_date];
                 this.cats = [res.data.stats[0].operation_date];
                 this.series[0]['data'] = [(Math.round(((res.data.stats[0].avg_cost) + Number.EPSILON) * 100) / 100)];

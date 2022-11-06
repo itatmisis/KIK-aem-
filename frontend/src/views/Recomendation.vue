@@ -50,13 +50,12 @@
 // @ is an alias to /src
 import axios from 'axios'
 import Menu from '@/components/Menu.vue'
-import Header from '@/components/Header.vue'
 import Paginate from "vuejs-paginate-next"; 
 
 export default {
   name: 'Recomendation',
   components: {
-    Menu,Header,Paginate
+    Menu,Paginate
   },
   data(){
     return{
