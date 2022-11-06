@@ -20,7 +20,7 @@
 
         <div class="mt-3 rounded p-2" style="background:white;width:fit-content">
           <VueApexCharts v-if="download" type="line" width="650" :options="chartOptions" :series="series"></VueApexCharts>
-          <div class="p-5" v-if="!gettedD">
+          <div class="p-5 mt-3" v-if="!gettedD">
             <p class="h2">Вы не ввели данные.</p>
           </div>
           <div v-if="gettedD & !download" class="loader"></div>
@@ -78,7 +78,7 @@ export default {
         }
          axios.post("https://vl0i36.deta.dev/analysis/filter?",null,{params:dataParams,headers: {"Content-Type": "application/json"  }})
             .then(res => {
-                console.log(res.data.stats);
+                // console.log(res.data.stats);
                 // this.chartOptions['xaxis']['categories'] = [res.data.stats[0].operation_date];
                 this.cats = [res.data.stats[0].operation_date];
                 this.series[0]['data'] = [(Math.round(((res.data.stats[0].avg_cost) + Number.EPSILON) * 100) / 100)];

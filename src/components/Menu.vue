@@ -37,13 +37,13 @@
                         <p style="color:red;font-size:0.9rem">Ошибка ввода</p>
                     </div>
                 </div>
-                <div class="row" v-on:click="() => this.$router.push('/recomendation')">
+                <div class="row mt-2" v-on:click="() => this.$router.push('/recomendation')">
                     <img style="height:10%;width:auto" src="../assets/rec_icon.svg" alt="" class="col-sm-3">
                     <p class="col-sm" style="cursor:pointer">Рекомендации</p>
                 </div>
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom"></div>
 
-                <div class="row" v-on:click="goToProfile">
+                <div class="row mt-3" v-on:click="goToProfile">
                     <img style="height:10%;width:auto" src="../assets/profile_icon.svg" alt="" class="col-sm-3">
                     <p class="col-sm" style="cursor:pointer">Личный кабинет</p>
                 </div>
@@ -58,7 +58,6 @@
 
 <script>
 import axios from 'axios'
-import Header from '@/components/Header.vue'
 
 export default {
     data(){
@@ -74,13 +73,13 @@ export default {
         }
     },
     components:{
-        Header
+        
     },
     methods:{
         getRecs(){
             axios.get('https://vl0i36.deta.dev/recommendations')
                 .then(res=>{
-                console.log(res.data);
+                // console.log(res.data);
                 for(let i=0;i<15;i++){
                     this.recs.push(res.data.stats[i]);
                 }

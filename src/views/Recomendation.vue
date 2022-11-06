@@ -17,7 +17,7 @@
             </div>
         </div>
         
-          <div v-if="downloaded">
+          <div class="mt-4" v-if="downloaded">
             <div v-for="(rec,key) in recs" :key="key" class="rounded p-2 mt-3" style="background:white;width:50%">
               <p :class="rec.clicked ? '' : 'text-truncate'">{{rec.name}}</p>
               <div class="row" style="width:45%;margin-left:5%">
@@ -50,13 +50,12 @@
 // @ is an alias to /src
 import axios from 'axios'
 import Menu from '@/components/Menu.vue'
-import Header from '@/components/Header.vue'
 import Paginate from "vuejs-paginate-next"; 
 
 export default {
   name: 'Recomendation',
   components: {
-    Menu,Header,Paginate
+    Menu,Paginate
   },
   data(){
     return{
