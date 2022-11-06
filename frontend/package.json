@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-router": "~4.5.3",
-    "@vue/cli-service": "~4.5.3",
+    "@vue/cli-service": "^4.5.19",
     "@vue/compiler-sfc": "^3.0.0"
   },
   "browserslist": [
