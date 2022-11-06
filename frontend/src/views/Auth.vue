@@ -18,6 +18,9 @@
                         <label class="form-check-label"  for="exampleCheck1">запомнить меня</label>
                     </div>
                 </div>
+                <div v-if="err">
+                    <p style="color:red">Вы неправильно ввели логин или пароль</p>
+                </div>
             </form>
         </div>
     </div>
@@ -30,7 +33,8 @@ export default {
     data(){
         return{
             login:'',
-            password:''
+            password:'',
+            err:false
         }
     },
     methods:{
@@ -39,17 +43,23 @@ export default {
         },
 
         authUser(){
+            this.err = false;
             const body = JSON.stringify({
                     login:this.login,
                     password:this.password
             })
             axios.post("https://vl0i36.deta.dev/authcheck",body,{headers: {"Content-Type": "application/json"  }})
                 .then(res=>{
+                    
                     console.log(res.data);
                     localStorage.setItem('logged',res.data.is_ok)
                     localStorage.setItem('admin',res.data.is_admin);
                     localStorage.setItem('super',res.data.is_super);
-                    this.$router.push('/')
+                    if(res.data.is_ok){
+                        this.$router.push('/');
+                    }else{
+                        this.err = true;
+                    }
                 })
                 .catch((e,res)=>{
                     console.log(e);
