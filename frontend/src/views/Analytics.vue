@@ -20,7 +20,7 @@
 
         <div class="mt-3 rounded p-2" style="background:white;width:fit-content">
           <VueApexCharts v-if="download" type="line" width="650" :options="chartOptions" :series="series"></VueApexCharts>
-          <div class="p-5" v-if="!gettedD">
+          <div class="p-5 mt-3" v-if="!gettedD">
             <p class="h2">Вы не ввели данные.</p>
           </div>
           <div v-if="gettedD & !download" class="loader"></div>
