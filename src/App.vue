@@ -33,5 +33,11 @@ export default {
          background:#F5F5F5;
          max-width: 100%;
          overflow-x: hidden;
+         font-family: 'TT-Moscow';
+    }
+    @font-face {
+        font-family: "TT-Moscow";
+        src: local("TT-Moscow"),
+        url(./fonts/TT-Moscow/TT_Moscow_Economy_Regular.ttf) format("truetype");
     }
 </style>
